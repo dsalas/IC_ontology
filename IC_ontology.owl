@@ -9,6 +9,22 @@
 <http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience> rdf:type owl:Ontology .
 
 #################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#hasConcept
+:hasConcept rdf:type owl:ObjectProperty ;
+            rdfs:domain :Document ;
+            rdfs:range :Concept .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#relatedTo
+:relatedTo rdf:type owl:ObjectProperty ;
+           rdfs:domain :Concept ;
+           rdfs:range :ComputerScienceArea .
+
+
+#################################################################
 #    Data properties
 #################################################################
 
@@ -22,102 +38,75 @@
 #    Classes
 #################################################################
 
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#AlgorithmsDataStructures
-:AlgorithmsDataStructures rdf:type owl:Class ;
-                          rdfs:subClassOf :ComputerScienceArea .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#ArtificialIntelligence
-:ArtificialIntelligence rdf:type owl:Class ;
-                        rdfs:subClassOf :ComputerScienceArea .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#ComputationalScience
-:ComputationalScience rdf:type owl:Class ;
-                      rdfs:subClassOf :ComputerScienceArea .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#ComputerArchitecture
-:ComputerArchitecture rdf:type owl:Class ;
-                      rdfs:subClassOf :ComputerScienceArea .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#ComputerGraphics
-:ComputerGraphics rdf:type owl:Class ;
-                  rdfs:subClassOf :ComputerScienceArea .
-
-
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#ComputerScienceArea
-:ComputerScienceArea rdf:type owl:Class .
+:ComputerScienceArea rdf:type owl:Class ;
+                     owl:disjointWith :Concept ,
+                                      :Document .
 
 
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#ComputerSecurity
-:ComputerSecurity rdf:type owl:Class ;
-                  rdfs:subClassOf :ComputerScienceArea .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#Concurrency
-:Concurrency rdf:type owl:Class ;
-             rdfs:subClassOf :ComputerScienceArea .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#DatabaseTheory
-:DatabaseTheory rdf:type owl:Class ;
-                rdfs:subClassOf :ComputerScienceArea .
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#Concept
+:Concept rdf:type owl:Class ;
+         owl:disjointWith :Document .
 
 
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#Document
 :Document rdf:type owl:Class .
 
 
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#FormalMethods
-:FormalMethods rdf:type owl:Class ;
-               rdfs:subClassOf :ComputerScienceArea .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#HumanBasedComputation
-:HumanBasedComputation rdf:type owl:Class ;
-                       rdfs:subClassOf :ComputerScienceArea .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#HumanComputerInteraction
-:HumanComputerInteraction rdf:type owl:Class ;
-                          rdfs:subClassOf :ComputerScienceArea .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#MathematicalOptimization
-:MathematicalOptimization rdf:type owl:Class ;
-                          rdfs:subClassOf :ComputerScienceArea .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#ProgrammingLanguageTheory
-:ProgrammingLanguageTheory rdf:type owl:Class ;
-                           rdfs:subClassOf :ComputerScienceArea .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#SoftwareEngineering
-:SoftwareEngineering rdf:type owl:Class ;
-                     rdfs:subClassOf :ComputerScienceArea .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#TeoricalComputerScience
-:TeoricalComputerScience rdf:type owl:Class ;
-                         rdfs:subClassOf :ComputerScienceArea .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#TheoryOfComputation
-:TheoryOfComputation rdf:type owl:Class ;
-                     rdfs:subClassOf :ComputerScienceArea .
-
-
 #################################################################
 #    Individuals
 #################################################################
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#algorithms_and_data_structures
+:algorithms_and_data_structures rdf:type owl:NamedIndividual ,
+                                         :ComputerScienceArea .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#artificial_intelligence
+:artificial_intelligence rdf:type owl:NamedIndividual ,
+                                  :ComputerScienceArea .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#bioinformatics
+:bioinformatics rdf:type owl:NamedIndividual ,
+                         :ComputerScienceArea .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#computer_graphics
+:computer_graphics rdf:type owl:NamedIndividual ,
+                            :ComputerScienceArea .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#data_mining
+:data_mining rdf:type owl:NamedIndividual ,
+                      :ComputerScienceArea .
+
 
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#document1
 :document1 rdf:type owl:NamedIndividual ,
                     :Document ;
            :hasUrl "www.doc1.com"^^rdfs:Literal .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#formal_methods
+:formal_methods rdf:type owl:NamedIndividual ,
+                         :ComputerScienceArea .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#neural_networks
+:neural_networks rdf:type owl:NamedIndividual ,
+                          :Concept .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#otsu
+:otsu rdf:type owl:NamedIndividual ,
+               :Concept ;
+      :relatedTo :computer_graphics .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#pointer
+:pointer rdf:type owl:NamedIndividual ,
+                  :Concept .
 
 
 ###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi
