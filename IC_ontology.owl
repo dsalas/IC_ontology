@@ -9,19 +9,49 @@
 <http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience> rdf:type owl:Ontology .
 
 #################################################################
+#    Annotation properties
+#################################################################
+
+###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
+<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
 #    Object Properties
 #################################################################
 
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#hasConcept
-:hasConcept rdf:type owl:ObjectProperty ;
-            rdfs:domain :Document ;
-            rdfs:range :Concept .
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#areaReferencedByDocument
+:areaReferencedByDocument rdf:type owl:ObjectProperty ;
+                          owl:inverseOf :documentReferencesArea .
 
 
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#relatedTo
-:relatedTo rdf:type owl:ObjectProperty ;
-           rdfs:domain :Concept ;
-           rdfs:range :ComputerScienceArea .
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#areaRelatedToConcept
+:areaRelatedToConcept rdf:type owl:ObjectProperty ;
+                      owl:inverseOf :conceptRelatedToArea .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#conceptInDocument
+:conceptInDocument rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty ;
+                   owl:inverseOf :documentHasConcept .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#conceptRelatedToArea
+:conceptRelatedToArea rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Concept ;
+                      rdfs:range :ComputerScienceArea .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#documentHasConcept
+:documentHasConcept rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Document ;
+                    rdfs:range :Concept .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#documentReferencesArea
+:documentReferencesArea rdf:type owl:ObjectProperty ;
+                        rdfs:domain :Document ;
+                        rdfs:range :ComputerScienceArea .
 
 
 #################################################################
@@ -37,6 +67,25 @@
 #################################################################
 #    Classes
 #################################################################
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#ClassifiedDocument
+:ClassifiedDocument rdf:type owl:Class ;
+                    owl:equivalentClass [ owl:intersectionOf ( :Document
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty :documentHasConcept ;
+                                                                 owl:someValuesFrom [ owl:intersectionOf ( :Concept
+                                                                                                           [ rdf:type owl:Restriction ;
+                                                                                                             owl:onProperty :conceptRelatedToArea ;
+                                                                                                             owl:someValuesFrom :ComputerScienceArea
+                                                                                                           ]
+                                                                                                         ) ;
+                                                                                      rdf:type owl:Class
+                                                                                    ]
+                                                               ]
+                                                             ) ;
+                                          rdf:type owl:Class
+                                        ] .
+
 
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#ComputerScienceArea
 :ComputerScienceArea rdf:type owl:Class ;
@@ -85,12 +134,25 @@
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#document1
 :document1 rdf:type owl:NamedIndividual ,
                     :Document ;
+           :documentHasConcept :svm ;
            :hasUrl "www.doc1.com"^^rdfs:Literal .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#document2
+:document2 rdf:type owl:NamedIndividual ,
+                    :Document ;
+           :documentHasConcept :neural_networks ;
+           :hasUrl "www.doc2.com"^^rdfs:Literal .
 
 
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#formal_methods
 :formal_methods rdf:type owl:NamedIndividual ,
                          :ComputerScienceArea .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#machine_learning
+:machine_learning rdf:type owl:NamedIndividual ,
+                           :ComputerScienceArea .
 
 
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#neural_networks
@@ -101,12 +163,63 @@
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#otsu
 :otsu rdf:type owl:NamedIndividual ,
                :Concept ;
-      :relatedTo :computer_graphics .
+      :conceptRelatedToArea :computer_graphics .
 
 
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#pointer
 :pointer rdf:type owl:NamedIndividual ,
-                  :Concept .
+                  :Concept ;
+         :conceptRelatedToArea :algorithms_and_data_structures .
 
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#support_vector_machine
+:support_vector_machine rdf:type owl:NamedIndividual ;
+                        owl:sameAs :svm .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#svm
+:svm rdf:type owl:NamedIndividual ,
+              :Concept ;
+     :conceptRelatedToArea :machine_learning .
+
+
+#################################################################
+#    Rules
+#################################################################
+
+:d rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:c rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:a rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment ""^^xsd:string ;
+   rdfs:label "areaByDocumentRule"^^xsd:string ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :documentHasConcept ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :d ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> :c
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> :conceptRelatedToArea ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> :c ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> :a
+                                                                ] ;
+                                                      rdf:rest rdf:nil
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :areaReferencedByDocument ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :a ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> :d
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
 
 ###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi
