@@ -20,6 +20,19 @@
 #    Object Properties
 #################################################################
 
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#DocumentRelatedToType
+:DocumentRelatedToType rdf:type owl:ObjectProperty ;
+                       owl:inverseOf :TypeRelatedToDocument ;
+                       rdfs:domain :Document ;
+                       rdfs:range :TypeOfDocument .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#TypeRelatedToDocument
+:TypeRelatedToDocument rdf:type owl:ObjectProperty ;
+                       rdfs:domain :TypeOfDocument ;
+                       rdfs:range :Document .
+
+
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#areaReferencedByDocument
 :areaReferencedByDocument rdf:type owl:ObjectProperty ;
                           owl:inverseOf :documentReferencesArea .
@@ -87,24 +100,71 @@
                                         ] .
 
 
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#ClassifiedTypeOfDocument
+:ClassifiedTypeOfDocument rdf:type owl:Class ;
+                          owl:equivalentClass [ owl:intersectionOf ( :TypeOfDocument
+                                                                     [ rdf:type owl:Restriction ;
+                                                                       owl:onProperty :TypeRelatedToDocument ;
+                                                                       owl:someValuesFrom [ owl:intersectionOf ( :Document
+                                                                                                                 [ rdf:type owl:Restriction ;
+                                                                                                                   owl:onProperty :documentReferencesArea ;
+                                                                                                                   owl:someValuesFrom :ComputerScienceArea
+                                                                                                                 ]
+                                                                                                               ) ;
+                                                                                            rdf:type owl:Class
+                                                                                          ]
+                                                                     ]
+                                                                   ) ;
+                                                rdf:type owl:Class
+                                              ] ;
+                          rdfs:subClassOf :TypeOfDocument .
+
+
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#ComputerScienceArea
 :ComputerScienceArea rdf:type owl:Class ;
                      owl:disjointWith :Concept ,
-                                      :Document .
+                                      :Document ,
+                                      :TypeOfDocument .
 
 
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#Concept
 :Concept rdf:type owl:Class ;
-         owl:disjointWith :Document .
+         owl:disjointWith :Document ,
+                          :TypeOfDocument .
 
 
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#Document
-:Document rdf:type owl:Class .
+:Document rdf:type owl:Class ;
+          owl:disjointWith :TypeOfDocument .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#TypeOfDocument
+:TypeOfDocument rdf:type owl:Class .
 
 
 #################################################################
 #    Individuals
 #################################################################
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#Conference
+:Conference rdf:type owl:NamedIndividual ,
+                     :TypeOfDocument .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#InProceedings
+:InProceedings rdf:type owl:NamedIndividual ,
+                        :TypeOfDocument .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#Journal
+:Journal rdf:type owl:NamedIndividual ,
+                  :TypeOfDocument .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#Thesis
+:Thesis rdf:type owl:NamedIndividual ,
+                 :TypeOfDocument .
+
 
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#algorithms_and_data_structures
 :algorithms_and_data_structures rdf:type owl:NamedIndividual ,
