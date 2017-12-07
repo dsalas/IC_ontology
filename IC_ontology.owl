@@ -100,19 +100,6 @@
                                         ] .
 
 
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#ClassifiedTypeOfDocument
-:ClassifiedTypeOfDocument rdf:type owl:Class ;
-                          owl:equivalentClass [ owl:intersectionOf ( :TypeOfDocument
-                                                                     [ rdf:type owl:Restriction ;
-                                                                       owl:onProperty :typeRelatedToDocument ;
-                                                                       owl:someValuesFrom :Document
-                                                                     ]
-                                                                   ) ;
-                                                rdf:type owl:Class
-                                              ] ;
-                          rdfs:subClassOf :TypeOfDocument .
-
-
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#ComputerScienceArea
 :ComputerScienceArea rdf:type owl:Class ;
                      owl:disjointWith :Concept ,
@@ -129,6 +116,18 @@
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#Document
 :Document rdf:type owl:Class ;
           owl:disjointWith :TypeOfDocument .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#Journals
+:Journals rdf:type owl:Class ;
+          owl:equivalentClass [ owl:intersectionOf ( :Document
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :documentRelatedToType ;
+                                                       owl:hasValue :journal
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] .
 
 
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#TypeOfDocument
