@@ -20,19 +20,6 @@
 #    Object Properties
 #################################################################
 
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#DocumentRelatedToType
-:DocumentRelatedToType rdf:type owl:ObjectProperty ;
-                       owl:inverseOf :TypeRelatedToDocument ;
-                       rdfs:domain :Document ;
-                       rdfs:range :TypeOfDocument .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#TypeRelatedToDocument
-:TypeRelatedToDocument rdf:type owl:ObjectProperty ;
-                       rdfs:domain :TypeOfDocument ;
-                       rdfs:range :Document .
-
-
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#areaReferencedByDocument
 :areaReferencedByDocument rdf:type owl:ObjectProperty ;
                           owl:inverseOf :documentReferencesArea .
@@ -65,6 +52,19 @@
 :documentReferencesArea rdf:type owl:ObjectProperty ;
                         rdfs:domain :Document ;
                         rdfs:range :ComputerScienceArea .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#documentRelatedToType
+:documentRelatedToType rdf:type owl:ObjectProperty ;
+                       owl:inverseOf :typeRelatedToDocument ;
+                       rdfs:domain :Document ;
+                       rdfs:range :TypeOfDocument .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#typeRelatedToDocument
+:typeRelatedToDocument rdf:type owl:ObjectProperty ;
+                       rdfs:domain :TypeOfDocument ;
+                       rdfs:range :Document .
 
 
 #################################################################
@@ -104,15 +104,8 @@
 :ClassifiedTypeOfDocument rdf:type owl:Class ;
                           owl:equivalentClass [ owl:intersectionOf ( :TypeOfDocument
                                                                      [ rdf:type owl:Restriction ;
-                                                                       owl:onProperty :TypeRelatedToDocument ;
-                                                                       owl:someValuesFrom [ owl:intersectionOf ( :Document
-                                                                                                                 [ rdf:type owl:Restriction ;
-                                                                                                                   owl:onProperty :documentReferencesArea ;
-                                                                                                                   owl:someValuesFrom :ComputerScienceArea
-                                                                                                                 ]
-                                                                                                               ) ;
-                                                                                            rdf:type owl:Class
-                                                                                          ]
+                                                                       owl:onProperty :typeRelatedToDocument ;
+                                                                       owl:someValuesFrom :Document
                                                                      ]
                                                                    ) ;
                                                 rdf:type owl:Class
@@ -146,26 +139,6 @@
 #    Individuals
 #################################################################
 
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#Conference
-:Conference rdf:type owl:NamedIndividual ,
-                     :TypeOfDocument .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#InProceedings
-:InProceedings rdf:type owl:NamedIndividual ,
-                        :TypeOfDocument .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#Journal
-:Journal rdf:type owl:NamedIndividual ,
-                  :TypeOfDocument .
-
-
-###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#Thesis
-:Thesis rdf:type owl:NamedIndividual ,
-                 :TypeOfDocument .
-
-
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#algorithms_and_data_structures
 :algorithms_and_data_structures rdf:type owl:NamedIndividual ,
                                          :ComputerScienceArea .
@@ -184,6 +157,11 @@
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#computer_graphics
 :computer_graphics rdf:type owl:NamedIndividual ,
                             :ComputerScienceArea .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#conference
+:conference rdf:type owl:NamedIndividual ,
+                     :TypeOfDocument .
 
 
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#data_mining
@@ -205,9 +183,25 @@
            :hasUrl "www.doc2.com"^^rdfs:Literal .
 
 
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#document3
+:document3 rdf:type owl:NamedIndividual ;
+           :documentRelatedToType :journal ;
+           :hasUrl "www.document3.com" .
+
+
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#formal_methods
 :formal_methods rdf:type owl:NamedIndividual ,
                          :ComputerScienceArea .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#in_proceedings
+:in_proceedings rdf:type owl:NamedIndividual ,
+                         :TypeOfDocument .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#journal
+:journal rdf:type owl:NamedIndividual ,
+                  :TypeOfDocument .
 
 
 ###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#machine_learning
@@ -241,6 +235,11 @@
 :svm rdf:type owl:NamedIndividual ,
               :Concept ;
      :conceptRelatedToArea :machine_learning .
+
+
+###  http://www.pucp.edu.pe.org/ontologies/2017/11/computerscience#thesis
+:thesis rdf:type owl:NamedIndividual ,
+                 :TypeOfDocument .
 
 
 #################################################################
